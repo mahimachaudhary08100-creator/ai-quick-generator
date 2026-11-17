@@ -1,0 +1,257 @@
+
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Quick Story Generator</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg,#141e30,#243b55);
+    min-height: 100vh;
+    padding: 20px;
+    color: white;
+}
+
+.container {
+    max-width: 650px;
+    margin: 30px auto;
+    background: #ffffff;
+    color: #222;
+    padding: 30px;
+    border-radius: 18px;
+    box-shadow: 0 10px 35px #0005;
+}
+
+h1 {
+    text-align: center;
+    color: #6c3ce7;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    text-align: center;
+    color: #777;
+    margin-bottom: 25px;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin: 15px 0 8px;
+}
+
+input, select {
+    width: 100%;
+    padding: 13px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+}
+
+button {
+    border: none;
+    padding: 14px;
+    border-radius: 9px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.generate {
+    width: 100%;
+    margin-top: 22px;
+    color: white;
+    background: linear-gradient(90deg,#7b2ff7,#f107a3);
+}
+
+.generate:hover {
+    opacity: 0.9;
+}
+
+.result {
+    margin-top: 25px;
+    background: #f5f1ff;
+    padding: 20px;
+    border-radius: 12px;
+    display: none;
+    line-height: 1.8;
+    white-space: pre-wrap;
+}
+
+.copy {
+    background: #6c3ce7;
+    color: white;
+    margin-top: 15px;
+    width: 100%;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>✨ AI Quick Generator</h1>
+<p class="subtitle">Create Amazing AI Stories Instantly!</p>
+
+<label>Character चुनें</label>
+<input id="character" placeholder="Lion, Rabbit, Tiger..." value="Lion">
+
+<label>Story Category</label>
+<select id="category">
+<option value="horror">👻 Horror Story</option>
+<option value="funny">😂 Funny Story</option>
+<option value="magic">✨ Magic Story</option>
+<option value="moral">🙏 Moral Story</option>
+<option value="adventure">🦁 Adventure Story</option>
+</select>
+
+<label>Video Duration</label>
+<select id="duration">
+<option>30 Seconds</option>
+<option>1 Minute</option>
+<option>2 Minutes</option>
+</select>
+
+<label>Language</label>
+<select id="language">
+<option value="hi">Hindi</option>
+<option value="en">English</option>
+</select>
+
+<button class="generate" onclick="generateStory()">
+✨ Generate AI Story
+</button>
+
+<div class="result" id="result">
+<h3>🎬 Your AI Story</h3>
+<p id="story"></p>
+<button class="copy" onclick="copyStory()">📋 Copy Story</button>
+</div>
+
+</div>
+
+<script>
+
+function generateStory() {
+
+let character = document.getElementById("character").value.trim();
+let category = document.getElementById("category").value;
+let duration = document.getElementById("duration").value;
+let language = document.getElementById("language").value;
+
+if (!character) {
+    alert("Please enter a character!");
+    return;
+}
+
+let stories = {
+
+horror: {
+hi: `एक रात ${character} जंगल में अकेला घूम रहा था।
+अचानक उसे एक अजीब आवाज सुनाई दी।
+वह डरते हुए आवाज की तरफ बढ़ा।
+वहां एक पुराना रहस्यमयी घर था।
+जैसे ही उसने दरवाजा खोला, अंदर से एक डरावनी परछाई बाहर आई।
+${character} तेजी से भागा और अपनी जान बचाई।
+लेकिन अगले दिन उस घर के बाहर उसके पैरों के निशान दिखाई दिए!`,
+en: `${character} was walking alone in a dark forest.
+Suddenly, a strange sound came from an old house.
+He slowly opened the door.
+A mysterious shadow appeared!
+He ran away, but the next morning his footprints were found outside the house.`
+},
+
+funny: {
+hi: `${character} एक दिन जंगल में घूम रहा था।
+उसे एक बड़ी गाजर दिखाई दी।
+उसने गाजर उठाई और खाने लगा।
+लेकिन गाजर इतनी बड़ी थी कि वह खुद ही उसके अंदर फंस गया!
+सभी जानवर उसे देखकर हंसने लगे।
+आखिरकार उसने अपनी गलती से एक मजेदार सबक सीखा।`,
+en: `${character} found a giant carrot in the forest.
+He tried to eat it but got stuck!
+All the animals started laughing.
+It became the funniest day in the forest.`
+},
+
+magic: {
+hi: `एक दिन ${character} को जंगल में एक जादुई चमकता पत्थर मिला।
+जैसे ही उसने उसे छुआ, उसके सामने एक परी प्रकट हुई।
+परी ने उसे तीन जादुई शक्तियां दीं।
+अब वह पूरे जंगल की मदद करने लगा।
+सभी जानवर उसे अपना हीरो मानने लगे।`,
+en: `One day ${character} found a magical glowing stone.
+A fairy appeared and gave him three magical powers.
+He used them to help all the animals in the forest.
+Everyone called him a hero.`
+},
+
+moral: {
+hi: `${character} जंगल में बहुत घमंडी था।
+वह हमेशा दूसरे जानवरों को परेशान करता था।
+एक दिन वह मुसीबत में फंस गया।
+जिन जानवरों को वह परेशान करता था, उन्होंने उसकी मदद की।
+उसे अपनी गलती का एहसास हुआ।
+उसने सभी से माफी मांगी।
+सीख: हमें हमेशा दूसरों के साथ अच्छा व्यवहार करना चाहिए।`,
+en: `${character} was very proud and troubled other animals.
+One day he got into trouble.
+The animals he had bullied came to help him.
+He realized his mistake and apologized.
+Moral: Always be kind to others.`
+},
+
+adventure: {
+hi: `एक दिन ${character} को जंगल में एक गुप्त नक्शा मिला।
+नक्शे में एक खजाने का रास्ता दिखाया गया था।
+वह पहाड़ों और नदियों को पार करता हुआ आगे बढ़ा।
+रास्ते में उसे कई चुनौतियों का सामना करना पड़ा।
+आखिरकार उसे एक रहस्यमयी गुफा में खजाना मिल गया।
+उसने खजाना सभी जानवरों के साथ बांट लिया।`,
+en: `${character} found a secret treasure map.
+He crossed mountains and rivers.
+After many adventures, he found a hidden treasure.
+He shared it with all his animal friends.`
+}
+
+};
+
+let story = stories[category][language];
+
+let output = `🎬 AI QUICK STORY GENERATOR
+
+Character: ${character}
+Category: ${category}
+Duration: ${duration}
+
+${story}
+
+🎥 END`;
+
+document.getElementById("story").innerText = output;
+document.getElementById("result").style.display = "block";
+
+}
+
+function copyStory() {
+    let text = document.getElementById("story").innerText;
+    navigator.clipboard.writeText(text)
+    .then(() => alert("Story copied successfully!"))
+    .catch(() => alert("Copy failed!"));
+}
+
+</script>
+
+</body>
+</html>
